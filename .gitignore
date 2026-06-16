@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+
+# Runtime artifacts are intentionally tracked for this portfolio project.
+# Keeping the trained model and reports in GitHub lets reviewers inspect outputs immediately.
+
+# Environments and editor files
+.env
+.venv/
+venv/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

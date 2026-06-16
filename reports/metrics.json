@@ -1,0 +1,212 @@
+{
+  "target": "1 = bad credit, 0 = good credit",
+  "best_model": "random_forest",
+  "models": {
+    "logistic_regression": {
+      "roc_auc": 0.8587,
+      "average_precision": 0.6385,
+      "precision_bad": 0.2917,
+      "recall_bad": 0.9459,
+      "f1_bad": 0.4459,
+      "confusion_matrix": [
+        [
+          78,
+          85
+        ],
+        [
+          2,
+          35
+        ]
+      ],
+      "selected_threshold": 0.3,
+      "threshold_table": [
+        {
+          "threshold": 0.2,
+          "bad_recall": 0.973,
+          "approval_rate": 0.26,
+          "false_approve_bad": 1,
+          "false_reject_good": 112,
+          "business_score": 60.0
+        },
+        {
+          "threshold": 0.3,
+          "bad_recall": 0.9459,
+          "approval_rate": 0.4,
+          "false_approve_bad": 2,
+          "false_reject_good": 85,
+          "business_score": 74.0
+        },
+        {
+          "threshold": 0.4,
+          "bad_recall": 0.8919,
+          "approval_rate": 0.51,
+          "false_approve_bad": 4,
+          "false_reject_good": 65,
+          "business_score": 68.0
+        },
+        {
+          "threshold": 0.5,
+          "bad_recall": 0.8108,
+          "approval_rate": 0.63,
+          "false_approve_bad": 7,
+          "false_reject_good": 44,
+          "business_score": 50.0
+        },
+        {
+          "threshold": 0.6,
+          "bad_recall": 0.6486,
+          "approval_rate": 0.765,
+          "false_approve_bad": 13,
+          "false_reject_good": 23,
+          "business_score": -7.0
+        },
+        {
+          "threshold": 0.7,
+          "bad_recall": 0.4324,
+          "approval_rate": 0.85,
+          "false_approve_bad": 21,
+          "false_reject_good": 14,
+          "business_score": -102.0
+        }
+      ]
+    },
+    "random_forest": {
+      "roc_auc": 0.9456,
+      "average_precision": 0.8039,
+      "precision_bad": 0.4737,
+      "recall_bad": 0.973,
+      "f1_bad": 0.6372,
+      "confusion_matrix": [
+        [
+          123,
+          40
+        ],
+        [
+          1,
+          36
+        ]
+      ],
+      "selected_threshold": 0.4,
+      "threshold_table": [
+        {
+          "threshold": 0.2,
+          "bad_recall": 1.0,
+          "approval_rate": 0.23,
+          "false_approve_bad": 0,
+          "false_reject_good": 117,
+          "business_score": 68.0
+        },
+        {
+          "threshold": 0.3,
+          "bad_recall": 1.0,
+          "approval_rate": 0.41,
+          "false_approve_bad": 0,
+          "false_reject_good": 81,
+          "business_score": 104.0
+        },
+        {
+          "threshold": 0.4,
+          "bad_recall": 0.973,
+          "approval_rate": 0.62,
+          "false_approve_bad": 1,
+          "false_reject_good": 40,
+          "business_score": 132.0
+        },
+        {
+          "threshold": 0.5,
+          "bad_recall": 0.8649,
+          "approval_rate": 0.75,
+          "false_approve_bad": 5,
+          "false_reject_good": 18,
+          "business_score": 102.0
+        },
+        {
+          "threshold": 0.6,
+          "bad_recall": 0.7297,
+          "approval_rate": 0.815,
+          "false_approve_bad": 10,
+          "false_reject_good": 10,
+          "business_score": 45.0
+        },
+        {
+          "threshold": 0.7,
+          "bad_recall": 0.4595,
+          "approval_rate": 0.9,
+          "false_approve_bad": 20,
+          "false_reject_good": 3,
+          "business_score": -78.0
+        }
+      ]
+    },
+    "gradient_boosting": {
+      "roc_auc": 0.9252,
+      "average_precision": 0.7656,
+      "precision_bad": 0.5397,
+      "recall_bad": 0.9189,
+      "f1_bad": 0.68,
+      "confusion_matrix": [
+        [
+          134,
+          29
+        ],
+        [
+          3,
+          34
+        ]
+      ],
+      "selected_threshold": 0.3,
+      "threshold_table": [
+        {
+          "threshold": 0.2,
+          "bad_recall": 0.9459,
+          "approval_rate": 0.555,
+          "false_approve_bad": 2,
+          "false_reject_good": 54,
+          "business_score": 105.0
+        },
+        {
+          "threshold": 0.3,
+          "bad_recall": 0.9189,
+          "approval_rate": 0.685,
+          "false_approve_bad": 3,
+          "false_reject_good": 29,
+          "business_score": 117.0
+        },
+        {
+          "threshold": 0.4,
+          "bad_recall": 0.7297,
+          "approval_rate": 0.795,
+          "false_approve_bad": 10,
+          "false_reject_good": 14,
+          "business_score": 41.0
+        },
+        {
+          "threshold": 0.5,
+          "bad_recall": 0.5946,
+          "approval_rate": 0.84,
+          "false_approve_bad": 15,
+          "false_reject_good": 10,
+          "business_score": -20.0
+        },
+        {
+          "threshold": 0.6,
+          "bad_recall": 0.4595,
+          "approval_rate": 0.885,
+          "false_approve_bad": 20,
+          "false_reject_good": 6,
+          "business_score": -81.0
+        },
+        {
+          "threshold": 0.7,
+          "bad_recall": 0.3243,
+          "approval_rate": 0.94,
+          "false_approve_bad": 25,
+          "false_reject_good": 0,
+          "business_score": -140.0
+        }
+      ]
+    }
+  },
+  "test_rows": 200,
+  "train_rows": 1000
+}

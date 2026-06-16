@@ -1,56 +1,207 @@
 # Credit Scoring
 
-Dự án xây dựng mô hình xếp hạng tín dụng khách hàng dựa trên dữ liệu lịch sử tín dụng, thông tin tài chính và thông tin cá nhân. Notebook chính sử dụng Python và scikit-learn để tiền xử lý dữ liệu, huấn luyện mô hình Random Forest, đánh giá kết quả và lưu mô hình.
+Credit Scoring is a machine learning project that estimates customer credit default risk from financial and demographic attributes. The project started as a notebook and has been extended into a small end-to-end ML system with training code, model comparison, threshold tuning, explainable prediction output, FastAPI API, and a simple frontend.
 
-## Bài toán
+## Problem
 
-Mục tiêu của dự án là dự đoán `Hạng tín dụng của khách hàng` dựa trên các đặc trưng như:
+The goal is to predict whether a customer belongs to a bad credit risk group (`Xấu`) or a good credit group (`Tốt`).
 
-- Tài khoản vãng lai
-- Thời hạn vay
-- Lịch sử tín dụng
-- Mục đích vay
-- Tài khoản tiết kiệm
-- Số năm kinh nghiệm
-- Giới tính
-- Tuổi
-- Tình trạng nhà ở
-- Nghề nghiệp
+In a lending context, prediction errors have different business costs:
 
-## Quy trình thực hiện
+- False approve bad customer: increases default loss.
+- False reject good customer: loses potential revenue.
 
-1. Đọc dữ liệu từ `train.xlsx` và `test.xlsx`.
-2. Khám phá kích thước, kiểu dữ liệu và một số dòng mẫu.
-3. Mã hóa các biến phân loại bằng `LabelEncoder`.
-4. Tách biến đầu vào `X` và biến mục tiêu `y`.
-5. Huấn luyện mô hình `RandomForestClassifier`.
-6. Đánh giá mô hình bằng Accuracy và F1-score.
-7. Dự đoán hạng tín dụng cho khách hàng mới.
-8. Lưu và tải lại mô hình bằng `joblib`.
+Because of that, this project reports more than accuracy and includes threshold tuning.
 
+## Dataset
 
-## Yêu cầu môi trường
+Files:
 
-Nên chạy notebook bằng Jupyter Notebook, JupyterLab hoặc VS Code với Python 3.
+- `train.xlsx`: 1000 rows
+- `test.xlsx`: 200 rows
 
-Các thư viện cần có:
+Target column:
 
-```bash
-pip install pandas scikit-learn openpyxl joblib
+- `Hạng tín dụng của KH`
+
+Features:
+
+- Checking account balance
+- Loan duration
+- Credit history
+- Loan purpose
+- Savings account balance
+- Work experience
+- Gender
+- Age group
+- Housing status
+- Occupation
+
+## Pipeline
+
+```text
+Excel data
+  -> data cleaning
+  -> train/test split from provided files
+  -> preprocessing
+     -> median imputation for numeric features
+     -> most-frequent imputation for categorical features
+     -> one-hot encoding
+     -> scaling for numeric features
+  -> model comparison
+     -> Logistic Regression
+     -> Random Forest
+     -> Gradient Boosting
+  -> threshold tuning
+  -> model persistence
+  -> FastAPI prediction API
+  -> frontend demo
 ```
 
-## Cách chạy
+## Metrics
 
-1. Mở terminal tại thư mục `CreditScoring`.
-2. Cài các thư viện cần thiết nếu chưa có.
-3. Mở `CreditScoring.ipynb`.
-4. Chạy lần lượt các cell từ trên xuống dưới.
+The project evaluates:
 
-Vì notebook đọc dữ liệu bằng đường dẫn tương đối:
+- ROC-AUC
+- Average Precision / PR-AUC
+- Precision for bad credit class
+- Recall for bad credit class
+- F1-score for bad credit class
+- Confusion matrix
+- Threshold table with a simple business score
 
-```python
-pd.read_excel("train.xlsx")
-pd.read_excel("test.xlsx")
+## Setup
+
+```powershell
+cd "d:\abc\Case study-20251013T035037Z-1-001"
+python -m pip install -r requirements.txt
 ```
 
-hãy đảm bảo kernel/notebook đang chạy trong đúng thư mục `CreditScoring`.
+## Train Model
+
+```powershell
+python -m src.train
+```
+
+Outputs:
+
+```text
+models/credit_scoring_model.joblib
+reports/metrics.json
+reports/model_report.md
+reports/figures/model_comparison.png
+reports/figures/threshold_tuning.png
+reports/figures/confusion_matrix.png
+```
+
+For this portfolio version, the trained model and generated reports are intentionally tracked in Git so reviewers can inspect the output immediately after cloning the repository.
+
+## Run API
+
+```powershell
+uvicorn src.api:app --reload --host 127.0.0.1 --port 8010
+```
+
+Open:
+
+```text
+http://127.0.0.1:8010
+```
+
+## API Endpoints
+
+```text
+GET  /health
+POST /train
+POST /predict
+```
+
+Example request:
+
+```json
+{
+  "Tài khoản vãng lai (USD)": "Không có",
+  "Thời hạn vay (tháng)": 24,
+  "Lịch sử tín dụng": "Đang vay của NH khác",
+  "Mục đích vay": "Kinh doanh",
+  "Tài khoản tiết kiệm (USD)": "Ít",
+  "Số năm kinh nghiệm": "1-3 năm",
+  "Giới tính": "Nam",
+  "Tuổi": "18-35",
+  "Tình trạng nhà ở": "Nhà sở hữu riêng",
+  "Nghề nghiệp": "Chuyên môn, hành chính"
+}
+```
+
+Example response:
+
+```json
+{
+  "default_probability": 0.42,
+  "risk_band": "Medium Risk",
+  "recommendation": "Manual review",
+  "top_risk_factors": [
+    "Low or missing checking account balance",
+    "Low savings account balance"
+  ],
+  "model": "random_forest"
+}
+```
+
+## Notebook
+
+The original exploratory notebook is kept at:
+
+```text
+CreditScoring.ipynb
+```
+
+The production-style pipeline is in `src/`.
+
+## Project Structure
+
+```text
+CreditScoring/
+  CreditScoring.ipynb
+  train.xlsx
+  test.xlsx
+  README.md
+  MODEL_CARD.md
+  requirements.txt
+  frontend/
+    index.html
+  src/
+    api.py
+    config.py
+    data.py
+    features.py
+    modeling.py
+    schemas.py
+    train.py
+  models/
+    credit_scoring_model.joblib
+  reports/
+    metrics.json
+    model_report.md
+    figures/
+      model_comparison.png
+      threshold_tuning.png
+      confusion_matrix.png
+```
+
+`models/` and `reports/` are generated by `python -m src.train` and committed for recruiter-friendly review.
+
+## Limitations
+
+- The dataset is small, so metrics may not generalize to real lending.
+- The model should not be used for real financial decisions without compliance review.
+- Fairness analysis is limited because sensitive attributes are not fully documented.
+- The current top risk factors are rule-based explanations, not SHAP explanations.
+
+## Future Improvements
+
+- Add SHAP explainability.
+- Add fairness analysis by age/gender groups.
+- Add drift monitoring for production data.
+- Add richer cost-sensitive threshold optimization.
+- Add model registry and experiment tracking.
