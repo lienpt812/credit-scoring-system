@@ -6,9 +6,9 @@
 - Test rows: 200
 - Selected model: `random_forest`
 - Selected decision threshold: `0.4`
-- ROC-AUC: `0.9456`
-- Average Precision: `0.8039`
-- Recall for bad credit customers: `0.9730`
+- ROC-AUC: `0.9461`
+- Average Precision: `0.8121`
+- Recall for bad credit customers: `1.0000`
 
 The selected model is chosen by ranking ROC-AUC plus Average Precision. This balances broad ranking quality with performance on the bad-credit class, which is the minority and higher-risk class.
 
@@ -17,7 +17,7 @@ The selected model is chosen by ranking ROC-AUC plus Average Precision. This bal
 | Model | ROC-AUC | Average Precision | Precision Bad | Recall Bad | F1 Bad | Selected Threshold |
 |---|---:|---:|---:|---:|---:|---:|
 | logistic_regression | 0.8587 | 0.6385 | 0.2917 | 0.9459 | 0.4459 | 0.3 |
-| random_forest (selected) | 0.9456 | 0.8039 | 0.4737 | 0.9730 | 0.6372 | 0.4 |
+| random_forest (selected) | 0.9461 | 0.8121 | 0.4253 | 1.0000 | 0.5968 | 0.4 |
 | gradient_boosting | 0.9252 | 0.7656 | 0.5397 | 0.9189 | 0.6800 | 0.3 |
 
 Interpretation:
@@ -32,23 +32,23 @@ Interpretation:
 
 | Threshold | Bad Recall | Approval Rate | False Approve Bad | False Reject Good | Business Score |
 |---:|---:|---:|---:|---:|---:|
-| 0.2 | 1.0000 | 0.2300 | 0 | 117 | 68.0 |
-| 0.3 | 1.0000 | 0.4100 | 0 | 81 | 104.0 |
-| 0.4 | 0.9730 | 0.6200 | 1 | 40 | 132.0 |
-| 0.5 | 0.8649 | 0.7500 | 5 | 18 | 102.0 |
-| 0.6 | 0.7297 | 0.8150 | 10 | 10 | 45.0 |
-| 0.7 | 0.4595 | 0.9000 | 20 | 3 | -78.0 |
+| 0.2 | 1.0000 | 0.1800 | 0 | 127 | 58.0 |
+| 0.3 | 1.0000 | 0.3550 | 0 | 92 | 93.0 |
+| 0.4 | 1.0000 | 0.5650 | 0 | 50 | 135.0 |
+| 0.5 | 0.8919 | 0.7050 | 4 | 26 | 107.0 |
+| 0.6 | 0.7568 | 0.8000 | 9 | 12 | 56.0 |
+| 0.7 | 0.4595 | 0.8900 | 20 | 5 | -80.0 |
 
 The final threshold is selected by the highest business score in the threshold table. In this project, missing a bad customer is treated as more costly than rejecting a good customer, so the selected threshold favors catching bad-credit customers even if some good customers are sent to review or rejected.
 
-At threshold `0.4`, the selected model reaches bad-customer recall of `0.9730` and an approval rate of `0.6200`.
+At threshold `0.4`, the selected model reaches bad-customer recall of `1.0000` and an approval rate of `0.5650`.
 
 ## Confusion Matrix Explanation
 
 | Actual / Predicted | Predicted Good | Predicted Bad |
 |---|---:|---:|
-| Actual Good | 123 | 40 |
-| Actual Bad | 1 | 36 |
+| Actual Good | 113 | 50 |
+| Actual Bad | 0 | 37 |
 
 - Actual Good / Predicted Good: good customers correctly approved.
 - Actual Good / Predicted Bad: good customers incorrectly rejected or sent to manual review.

@@ -351,30 +351,30 @@ def predict_risk(input_df: pd.DataFrame, model_path: str | Path = MODEL_PATH) ->
 
 def risk_band(probability: float) -> str:
     if probability >= 0.6:
-        return "High Risk"
+        return "Rủi ro cao"
     if probability >= 0.3:
-        return "Medium Risk"
-    return "Low Risk"
+        return "Rủi ro trung bình"
+    return "Rủi ro thấp"
 
 
 def recommendation_for_band(band: str) -> str:
-    if band == "High Risk":
-        return "Reject or manual review"
-    if band == "Medium Risk":
-        return "Manual review"
-    return "Approve"
+    if band == "Rủi ro cao":
+        return "Từ chối hoặc chuyển thẩm định thủ công"
+    if band == "Rủi ro trung bình":
+        return "Chuyển thẩm định thủ công"
+    return "Có thể phê duyệt"
 
 
 def top_risk_factors(row: dict[str, Any]) -> list[str]:
     factors: list[str] = []
     if row.get("Tài khoản vãng lai (USD)") in {"<0", "Không có"}:
-        factors.append("Low or missing checking account balance")
+        factors.append("Số dư tài khoản vãng lai thấp hoặc không có")
     if row.get("Tài khoản tiết kiệm (USD)") in {"Ít", "Không có"}:
-        factors.append("Low savings account balance")
+        factors.append("Số dư tài khoản tiết kiệm thấp")
     if int(row.get("Thời hạn vay (tháng)", 0)) >= 36:
-        factors.append("Long loan duration")
-    if row.get("Lịch sử tín dụng") in {"Không có", "Chậm trả trước đây"}:
-        factors.append("Weak or missing credit history")
+        factors.append("Thời hạn vay dài")
+    if row.get("Lịch sử tín dụng") in {"Không có", "Nợ quá hạn"}:
+        factors.append("Lịch sử tín dụng yếu hoặc chưa rõ ràng")
     if not factors:
-        factors.append("No major rule-based risk factor detected")
+        factors.append("Chưa phát hiện yếu tố rủi ro lớn theo bộ luật đơn giản")
     return factors[:3]

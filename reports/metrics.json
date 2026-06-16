@@ -71,19 +71,19 @@
       ]
     },
     "random_forest": {
-      "roc_auc": 0.9456,
-      "average_precision": 0.8039,
-      "precision_bad": 0.4737,
-      "recall_bad": 0.973,
-      "f1_bad": 0.6372,
+      "roc_auc": 0.9461,
+      "average_precision": 0.8121,
+      "precision_bad": 0.4253,
+      "recall_bad": 1.0,
+      "f1_bad": 0.5968,
       "confusion_matrix": [
         [
-          123,
-          40
+          113,
+          50
         ],
         [
-          1,
-          36
+          0,
+          37
         ]
       ],
       "selected_threshold": 0.4,
@@ -91,50 +91,50 @@
         {
           "threshold": 0.2,
           "bad_recall": 1.0,
-          "approval_rate": 0.23,
+          "approval_rate": 0.18,
           "false_approve_bad": 0,
-          "false_reject_good": 117,
-          "business_score": 68.0
+          "false_reject_good": 127,
+          "business_score": 58.0
         },
         {
           "threshold": 0.3,
           "bad_recall": 1.0,
-          "approval_rate": 0.41,
+          "approval_rate": 0.355,
           "false_approve_bad": 0,
-          "false_reject_good": 81,
-          "business_score": 104.0
+          "false_reject_good": 92,
+          "business_score": 93.0
         },
         {
           "threshold": 0.4,
-          "bad_recall": 0.973,
-          "approval_rate": 0.62,
-          "false_approve_bad": 1,
-          "false_reject_good": 40,
-          "business_score": 132.0
+          "bad_recall": 1.0,
+          "approval_rate": 0.565,
+          "false_approve_bad": 0,
+          "false_reject_good": 50,
+          "business_score": 135.0
         },
         {
           "threshold": 0.5,
-          "bad_recall": 0.8649,
-          "approval_rate": 0.75,
-          "false_approve_bad": 5,
-          "false_reject_good": 18,
-          "business_score": 102.0
+          "bad_recall": 0.8919,
+          "approval_rate": 0.705,
+          "false_approve_bad": 4,
+          "false_reject_good": 26,
+          "business_score": 107.0
         },
         {
           "threshold": 0.6,
-          "bad_recall": 0.7297,
-          "approval_rate": 0.815,
-          "false_approve_bad": 10,
-          "false_reject_good": 10,
-          "business_score": 45.0
+          "bad_recall": 0.7568,
+          "approval_rate": 0.8,
+          "false_approve_bad": 9,
+          "false_reject_good": 12,
+          "business_score": 56.0
         },
         {
           "threshold": 0.7,
           "bad_recall": 0.4595,
-          "approval_rate": 0.9,
+          "approval_rate": 0.89,
           "false_approve_bad": 20,
-          "false_reject_good": 3,
-          "business_score": -78.0
+          "false_reject_good": 5,
+          "business_score": -80.0
         }
       ]
     },
